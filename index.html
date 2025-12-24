@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengulangan Angka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hasil {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            display: none;
+        }
+        .hasil h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .hasil-item {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: white;
+            border-radius: 3px;
+            border: 1px solid #e0e0e0;
+        }
+        .ti {
+            color: #2196F3;
+            font-weight: bold;
+        }
+        .unindra {
+            color: #FF9800;
+            font-weight: bold;
+        }
+        .web {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Form Pengulangan Angka</h2>
+        <div class="form-group">
+            <label for="nilaiAngka">Masukkan Nilai Angka:</label>
+            <input type="number" id="nilaiAngka" min="1" placeholder="Contoh: 20">
+        </div>
+        <button onclick="prosesAngka()">Proses</button>
+        
+        <div class="hasil" id="hasil">
+            <h3>Hasil Pengulangan:</h3>
+            <div id="outputHasil"></div>
+        </div>
+    </div>
+
+    <script>
+        function prosesAngka() {
+            const nilai = parseInt(document.getElementById('nilaiAngka').value);
+            const hasilDiv = document.getElementById('hasil');
+            const outputDiv = document.getElementById('outputHasil');
+            
+            if (isNaN(nilai) || nilai < 1) {
+                alert('Silakan masukkan angka yang valid (minimal 1)');
+                return;
+            }
+            
+            let output = '';
+            
+            for (let i = 1; i <= nilai; i++) {
+                let hasil = i + ' = ';
+                
+                // Cek apakah habis dibagi 15 (harus dicek dulu sebelum 3 dan 5)
+                if (i % 15 === 0) {
+                    hasil += '<span class="web">WEB</span>';
+                }
+                // Cek apakah habis dibagi 3
+                else if (i % 3 === 0) {
+                    hasil += '<span class="ti">TI</span>';
+                }
+                // Cek apakah habis dibagi 5
+                else if (i % 5 === 0) {
+                    hasil += '<span class="unindra">Unindra</span>';
+                }
+                // Jika tidak habis dibagi 3, 5, atau 15
+                else {
+                    hasil += i;
+                }
+                
+                output += '<div class="hasil-item">' + hasil + '</div>';
+            }
+            
+            outputDiv.innerHTML = output;
+            hasilDiv.style.display = 'block';
+        }
+        
+        // Enter key support
+        document.getElementById('nilaiAngka').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                prosesAngka();
+            }
+        });
+    </script>
+</body>
+</html>
